@@ -148,7 +148,7 @@ app.get("/auth/onshape", passport.authenticate("onshape"));
 // #3 processes the authentication response and logs the user in, after Onshape redirects the user back to the app:
 app.get(
   "/auth/onshape/callback",
-  passport.authenticate("onshape", { failureRedirect: "/login" }),
+  passport.authenticate("onshape", { failureRedirect: "https://legendary-axolotl-5825c7.netlify.app/login" }),
   function (req, res) {
     // Successful authentication, redirect home.
     res.redirect("https://legendary-axolotl-5825c7.netlify.app/");
@@ -179,5 +179,5 @@ app.post("/auth/logout", function (req, res, next) {
 });
 
 app.listen(process.env.PORT || 8000, () => {
-  console.log("Server Started on port 8000");
+  console.log("Server Started");
 });
