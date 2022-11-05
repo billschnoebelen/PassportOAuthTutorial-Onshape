@@ -22,7 +22,10 @@ mongoose.connect(
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://legendary-axolotl-5825c7.netlify.app",
+    origin: [
+      "https://legendary-axolotl-5825c7.netlify.app",
+      "http://localhost:3000/login",
+    ],
     credentials: true,
   })
 );
@@ -84,6 +87,9 @@ passport.use(
     ) {
       console.log("accessToken", accessToken);
       console.log("refreshToken", refreshToken);
+      profile.accessToken = accessToken;
+      profile.refreshToken = refreshToken;
+      console.log("profile", profile)
       // Gets called on successful authentification
       // Insert user into database
       User.findOne(
@@ -110,7 +116,35 @@ passport.use(
 );
 
 // #1 Configure the Onshape strategy for use by Passport
-app.get("/auth/onshape", passport.authenticate("onshape"));
+app.get(
+  "/auth/onshape",
+  passport.authenticate("onshape", { state: "id" }));
+
+// app.use("/oauthSignin", storeExtraParams, function (req, res) {
+//   // The request will be redirected to Onshape for authentication, so this
+//   // function will not be called.
+// });
+
+// return passport.authenticate("onshape", { state: id })(req, res);
+
+// var StateMap = {};
+// function storeExtraParams(req: any, res: any) {
+//   var docId = req.query.documentId;
+//   var workId = req.query.workspaceId;
+//   var elId = req.query.elementId;
+//   var state = {
+//     documentId: docId,
+//     workspaceId: workId,
+//     elementId: elId,
+//   };
+//   var stateString = JSON.stringify(state);
+//   var uniqueID = "state" + passport.session();
+//   // Save the d/w/e to Redis instead of a global
+//   client.set(uniqueID, stateString);
+//   var id = uuid.v4(state);
+//   StateMap[id] = state;
+//   return passport.authenticate("onshape", { state: id })(req, res);
+// }
 
 // #3 processes the authentication response and logs the user in, after Onshape redirects the user back to the app:
 app.get(
