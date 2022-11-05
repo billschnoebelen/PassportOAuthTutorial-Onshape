@@ -24,7 +24,7 @@ app.use(
   cors({
     origin: [
       "https://legendary-axolotl-5825c7.netlify.app",
-      "http://localhost:3000/login",
+      "http://localhost:3000",
     ],
     credentials: true,
   })
