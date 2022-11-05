@@ -88,6 +88,9 @@ passport.use(
       console.log("accessToken", accessToken);
       console.log("refreshToken", refreshToken);
       console.log("profile", profile);
+      profile.accessToken = accessToken;
+      profile.refreshToken = refreshToken;
+      console.log("profile", profile);
       // Gets called on successful authentification
       // Insert user into database
       User.findOne(
