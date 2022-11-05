@@ -22,10 +22,11 @@ mongoose.connect(
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://legendary-axolotl-5825c7.netlify.app/",
+    origin: "https://legendary-axolotl-5825c7.netlify.app",
     credentials: true,
   })
 );
+
 app.use((req, res, next) => {
   console.log("req", req.method, req.url);
   //   console.log("req", req.url);
@@ -49,7 +50,6 @@ app.use(
     },
   })
 );
-
 
 app.use(passport.initialize());
 app.use(passport.session());
