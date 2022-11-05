@@ -138,7 +138,7 @@ app.get("/", (req, res) => {
 // This deserializes the user behind the scenes
 app.get("/getUser", (req, res) => {
   console.log("getUser req.user", req.user);
-  console.log("req.sessionID", req.sessionID)
+  console.log("req.sessionID", req.sessionID);
   res.send(req.user);
 });
 
@@ -149,13 +149,11 @@ app.post("/auth/logout", function (req, res, next) {
     if (err) {
       return next(err);
     }
-    res.clearCookie(cookieName);
+    // res.clearCookie(cookieName);
     res.send("done");
   });
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log("Server Started on port 8000");
 });
-
-
