@@ -43,22 +43,13 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      sameSite: `${process.env.ENV}` === "PRODUCTION" ? true : false,
-      secure: `${process.env.ENV}` === "PRODUCTION" ? true : false,
+      sameSite: "none",
+      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 7, // One Week
     },
-    // genid: function (req) {
-    //   return genuuid(); // use UUIDs for session IDs
-    // },
   })
 );
 
-// app.use(session({
-//   genid: function(req) {
-//     return genuuid() // use UUIDs for session IDs
-//   },
-//   secret: 'keyboard cat'
-// }))
 
 app.use(passport.initialize());
 app.use(passport.session());
