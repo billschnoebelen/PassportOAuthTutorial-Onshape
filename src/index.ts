@@ -87,9 +87,7 @@ passport.use(
     ) {
       console.log("accessToken", accessToken);
       console.log("refreshToken", refreshToken);
-      profile.accessToken = accessToken;
-      profile.refreshToken = refreshToken;
-      console.log("profile", profile)
+      console.log("profile", profile);
       // Gets called on successful authentification
       // Insert user into database
       User.findOne(
@@ -103,6 +101,9 @@ passport.use(
             const newUser = new User({
               onshapeId: profile.id,
               username: profile.displayName,
+              emails: profile.emails,
+              accessToken: accessToken,
+              refreshToken: refreshToken,
             });
 
             await newUser.save();
@@ -116,9 +117,7 @@ passport.use(
 );
 
 // #1 Configure the Onshape strategy for use by Passport
-app.get(
-  "/auth/onshape",
-  passport.authenticate("onshape", { state: "id" }));
+app.get("/auth/onshape", passport.authenticate("onshape", { state: "id" }));
 
 // app.use("/oauthSignin", storeExtraParams, function (req, res) {
 //   // The request will be redirected to Onshape for authentication, so this

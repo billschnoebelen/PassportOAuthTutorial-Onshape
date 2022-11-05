@@ -6,6 +6,9 @@ export interface IUser {
 export interface IMongoDBUser {
     onshapeId?: string,
     username: string,
+    emails: Array<string>,
+    accessToken: string,
+    refreshToken: string,
     __v: number,
     _id: string
 }
