@@ -53,7 +53,7 @@ mongoose_1.default.connect("".concat(process.env.START_MONGODB).concat(process.e
 // Middleware
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000",
+    origin: "https://legendary-axolotl-5825c7.netlify.app/",
     credentials: true,
 }));
 app.use(function (req, res, next) {
@@ -138,7 +138,7 @@ app.get("/auth/onshape", passport_1.default.authenticate("onshape"));
 // #3 processes the authentication response and logs the user in, after Onshape redirects the user back to the app:
 app.get("/auth/onshape/callback", passport_1.default.authenticate("onshape", { failureRedirect: "/login" }), function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:3000");
+    res.redirect("https://legendary-axolotl-5825c7.netlify.app/");
 });
 app.get("/", function (req, res) {
     res.send("Hello World");

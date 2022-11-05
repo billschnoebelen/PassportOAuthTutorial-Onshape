@@ -22,7 +22,7 @@ mongoose.connect(
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://legendary-axolotl-5825c7.netlify.app/",
     credentials: true,
   })
 );
@@ -118,7 +118,7 @@ app.get(
   passport.authenticate("onshape", { failureRedirect: "/login" }),
   function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:3000");
+    res.redirect("https://legendary-axolotl-5825c7.netlify.app/");
   }
 );
 
