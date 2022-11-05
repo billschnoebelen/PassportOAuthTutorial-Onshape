@@ -117,7 +117,7 @@ passport.use(
 );
 
 // #1 Configure the Onshape strategy for use by Passport
-app.get("/auth/onshape", passport.authenticate("onshape", { state: "id" }));
+app.get("/auth/onshape", passport.authenticate("onshape"));
 
 // app.use("/oauthSignin", storeExtraParams, function (req, res) {
 //   // The request will be redirected to Onshape for authentication, so this
