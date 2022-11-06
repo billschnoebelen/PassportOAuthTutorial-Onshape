@@ -6,7 +6,14 @@ import cors from "cors";
 import session from "express-session";
 import passport from "passport";
 import User from "./User";
+const { v4: uuidv4 } = require('uuid');
 const OnshapeStrategy = require("passport-onshape").Strategy;
+
+declare module 'express-session' {
+  export interface SessionData {
+    state: { [key: string]: any };
+  }
+}
 
 dotenv.config();
 
@@ -108,7 +115,7 @@ passport.use(
               accessToken: accessToken,
               refreshToken: refreshToken,
             });
-
+            // TODO:Something below fails. The other path works.
             await newUser.save();
             cb(null, newUser);
           }
@@ -120,7 +127,20 @@ passport.use(
 );
 
 // #1 Configure the Onshape strategy for use by Passport
-app.get("/auth/onshape", passport.authenticate("onshape"));
+// app.get("/auth/onshape", passport.authenticate("onshape"));
+
+
+
+app.use('/auth/onshape', (req, res) => {
+  const state = {
+      docId: req.query.documentId,
+      workId: req.query.workspaceId,
+      elId: req.query.elementId
+  };
+  req.session.state = state;
+  return passport.authenticate('onshape', { state: uuidv4(state) })(req, res);
+}, (req, res) => { /* redirected to Onshape for authentication */ });
+
 
 // app.use("/oauthSignin", storeExtraParams, function (req, res) {
 //   // The request will be redirected to Onshape for authentication, so this
