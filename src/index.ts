@@ -242,7 +242,7 @@ app.get("/sandwich", async (req, res) => {
 
   const headers = {
     headers: {
-      Authorization: `Bearer kOiIHRDIneaJe6sNB0rmmA==`,
+      Authorization: `Bearer ogWzRdsanW4UsZz7aa2xtQ==`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
