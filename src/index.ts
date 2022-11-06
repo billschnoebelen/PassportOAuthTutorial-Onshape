@@ -214,9 +214,9 @@ app.post("/auth/logout", function (req, res, next) {
 app.get("/sandwich", (req, res) => {
   const baloney = {
     did: req.query.documentId,
-    wid: req.query.workspaceId,
-    gltfElemId: req.query.gltfElementId,
-    partId: req.query.partId,
+    // wid: req.query.workspaceId,
+    // gltfElemId: req.query.gltfElementId,
+    // partId: req.query.partId,
     // accessToken: req.user.accessToken,
     // req.session.passport.user.id,
   };
