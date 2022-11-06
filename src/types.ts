@@ -14,7 +14,7 @@ export interface IMongoDBUser {
 }
 
 export interface IOnshapeSession {
-    onshapeId?: string,
+    userId?: string,
     username: string,
     __v: number,
     _id: string
