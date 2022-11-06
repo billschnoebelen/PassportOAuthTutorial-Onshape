@@ -232,7 +232,7 @@ app.get("/sandwich", (req, res) => {
   };
 
   console.log("baloney", baloney);
-  res.json(baloney);
+  res.json(req);
 });
 
 app.listen(process.env.PORT || 8000, () => {
