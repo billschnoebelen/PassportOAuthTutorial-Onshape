@@ -222,17 +222,17 @@ app.get("/sandwich", (req, res) => {
   // };
   // console.log("jhkjkjjkhklklklklk")
 
-  // const baloney = {
-  //   did: "req.query.documentId",
-  //   wid: "req.query.workspaceId",
-  //   gltfElemId: "req.query.gltfElementId",
-  //   partId: "req.query.partId",
-  //   // accessToken: req.user.accessToken,
-  //   // req.session.passport.user.id,
-  // };
+  const baloney = {
+    did: "req.query.documentId",
+    wid: "req.query.workspaceId",
+    gltfElemId: "req.query.gltfElementId",
+    partId: "req.query.partId",
+    // accessToken: req.user.accessToken,
+    // req.session.passport.user.id,
+  };
 
-  // console.log("baloney", baloney);
-  res.json(req);
+  console.log("baloney", baloney);
+  res.json(baloney);
 });
 
 app.listen(process.env.PORT || 8000, () => {
