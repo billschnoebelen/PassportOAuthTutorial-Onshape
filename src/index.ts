@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+const axios = require("axios");
 import session from "express-session";
 import passport from "passport";
 import User from "./User";
@@ -101,7 +102,7 @@ passport.use(
       // Gets called on successful authentification
       // Insert user into database
       User.findOne(
-        { onshapeId: profile.id },
+        { userId: profile.id },
         async (err: Error, doc: IMongoDBUser) => {
           if (err) {
             return cb(err, null);
@@ -201,7 +202,7 @@ app.get("/getUser", (req, res) => {
 });
 
 // logout does not clear the cookie
-app.post("/auth/logout", function (req, res, next) {
+app.post("/auth/logout", (req, res, next) => {
   console.log("logout called");
   req.logout(function (err) {
     if (err) {
@@ -212,7 +213,7 @@ app.post("/auth/logout", function (req, res, next) {
   });
 });
 
-app.get("/sandwich", (req, res) => {
+app.get("/sandwich", async (req, res) => {
   const baloney = {
     did: req.query.documentId,
     wid: req.query.workspaceId,
@@ -222,20 +223,48 @@ app.get("/sandwich", (req, res) => {
     //  accessToken: req.user.accessToken,
     //   // req.session.passport.user.id,
   };
-  console.log("req.user", req.user)
-  console.log("req.session", req.session)
+  console.log("req.user", req.user);
+  console.log("req.session", req.session);
 
-  // const baloney = {
-  //   did: "req.query.documentId",
-  //   wid: "req.query.workspaceId",
-  //   gltfElemId: "req.query.gltfElementId",
-  //   partId: "req.query.partId",
-  //   // accessToken: req.user.accessToken,
-  //   // req.session.passport.user.id,
-  // };
+  let authorization = "";
+  User.findOne(
+    { userId: req.query.userId },
+    function (err: Error, doc: IMongoDBUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Result : ", doc.accessToken);
+        authorization = doc.accessToken;
+      }
+    }
+  );
 
-  console.log("baloney", baloney);
-  res.json(baloney);
+  const headers = {
+    headers: {
+      Authorization: `Bearer ${authorization}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  };
+
+  const osEndpoint = `https://cad.onshape.com/api/users/${req.query.userId}/settings?includematerials=false`;
+
+  const data = await axios
+    .get(osEndpoint, headers)
+    .then((response: { data: any }) => {
+      // console.log(response.data)
+      return response.data;
+    })
+    .catch((error: { response: { data: any } }) => {
+      const msg = `There was an error in your call to ${osEndpoint}!: ${JSON.stringify(
+        error.response.data
+      )}`;
+      console.error(msg);
+      return { msg: msg };
+    });
+
+  // console.log("baloney", baloney);
+  res.json(data);
 });
 
 app.listen(process.env.PORT || 8000, () => {
