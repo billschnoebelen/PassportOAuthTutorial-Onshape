@@ -6,10 +6,10 @@ import cors from "cors";
 import session from "express-session";
 import passport from "passport";
 import User from "./User";
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 const OnshapeStrategy = require("passport-onshape").Strategy;
 
-declare module 'express-session' {
+declare module "express-session" {
   export interface SessionData {
     state: { [key: string]: any };
   }
@@ -129,21 +129,26 @@ passport.use(
 // #1 Configure the Onshape strategy for use by Passport
 app.get("/auth/onshape", passport.authenticate("onshape"));
 
-
-
-app.use('/auth/onshapeApp', (req, res) => {
-  console.log("req.query.documentId:", req.query.documentId,)
-  console.log("req.query.workspaceId:", req.query.workspaceId,)
-  console.log("req.query.elementId:", req.query.elementId,)
-  const state = {
+app.use(
+  "/auth/onshapeApp",
+  (req, res) => {
+    console.log("req.query.documentId:", req.query.documentId);
+    console.log("req.query.workspaceId:", req.query.workspaceId);
+    console.log("req.query.elementId:", req.query.elementId);
+    const state = {
       docId: req.query.documentId,
       workId: req.query.workspaceId,
-      elId: req.query.elementId
-  };
-  req.session.state = state;
-  return passport.authenticate('onshape', { state: uuidv4(state) })(req, res);
-}, (req, res) => { console.log("this should NEVER run") /* redirected to Onshape for authentication */ });
-
+      elId: req.query.elementId,
+    };
+    req.session.state = state;
+    return passport.authenticate("onshape", { state: uuidv4(state) })(req, res);
+  },
+  (req, res) => {
+    console.log(
+      "this should NEVER run"
+    ); /* redirected to Onshape for authentication */
+  }
+);
 
 // app.use("/oauthSignin", storeExtraParams, function (req, res) {
 //   // The request will be redirected to Onshape for authentication, so this
@@ -174,7 +179,9 @@ app.use('/auth/onshapeApp', (req, res) => {
 // #3 processes the authentication response and logs the user in, after Onshape redirects the user back to the app:
 app.get(
   "/auth/onshape/callback",
-  passport.authenticate("onshape", { failureRedirect: "https://legendary-axolotl-5825c7.netlify.app/login" }),
+  passport.authenticate("onshape", {
+    failureRedirect: "https://legendary-axolotl-5825c7.netlify.app/login",
+  }),
   function (req, res) {
     // Successful authentication, redirect home.
     res.redirect("https://legendary-axolotl-5825c7.netlify.app/");
@@ -202,6 +209,20 @@ app.post("/auth/logout", function (req, res, next) {
     // res.clearCookie(cookieName);
     res.send("done");
   });
+});
+
+app.get("/sandwich", (req, res) => {
+  const baloney = {
+    did: req.query.documentId,
+    wid: req.query.workspaceId,
+    gltfElemId: req.query.gltfElementId,
+    partId: req.query.partId,
+    // accessToken: req.user.accessToken,
+    // req.session.passport.user.id,
+  };
+
+  console.log("baloney", baloney);
+  res.json(baloney);
 });
 
 app.listen(process.env.PORT || 8000, () => {
