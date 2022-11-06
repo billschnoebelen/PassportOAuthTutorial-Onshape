@@ -132,13 +132,14 @@ app.get("/auth/onshape", passport.authenticate("onshape"));
 app.use(
   "/auth/onshapeApp",
   (req, res) => {
-    console.log("XXX req.query.documentId:", req.query.documentId);
-    console.log("req.query.workspaceId:", req.query.workspaceId);
-    console.log("req.query.elementId:", req.query.elementId);
+    // console.log("XXX req.query.documentId:", req.query.documentId);
+    // console.log("req.query.workspaceId:", req.query.workspaceId);
+    // console.log("req.query.elementId:", req.query.elementId);
     const state = {
       documentId: req.query.documentId,
       workspaceId: req.query.workspaceId,
       elementId: req.query.elementId,
+      userId: req.query.userId,
     };
     req.session.state = state;
     return passport.authenticate("onshape", { state: uuidv4(state) })(req, res);
