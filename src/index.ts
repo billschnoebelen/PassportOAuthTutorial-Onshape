@@ -215,7 +215,8 @@ app.get("/sandwich", (req, res) => {
   const baloney = {
     did: req.query.documentId,
     wid: req.query.workspaceId,
-    //   // gltfElemId: req.query.gltfElementId,
+    gltfElemId: req.query.gltfElementId,
+    userId: req.query.userId,
     //   // partId: req.query.partId,
     //   // accessToken: req.user.accessToken,
     //   // req.session.passport.user.id,
