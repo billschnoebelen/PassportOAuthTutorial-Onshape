@@ -127,11 +127,14 @@ passport.use(
 );
 
 // #1 Configure the Onshape strategy for use by Passport
-// app.get("/auth/onshape", passport.authenticate("onshape"));
+app.get("/auth/onshape", passport.authenticate("onshape"));
 
 
 
-app.use('/auth/onshape', (req, res) => {
+app.use('/auth/onshapeApp', (req, res) => {
+  console.log("req.query.documentId:", req.query.documentId,)
+  console.log("req.query.workspaceId:", req.query.workspaceId,)
+  console.log("req.query.elementId:", req.query.elementId,)
   const state = {
       docId: req.query.documentId,
       workId: req.query.workspaceId,
@@ -139,7 +142,7 @@ app.use('/auth/onshape', (req, res) => {
   };
   req.session.state = state;
   return passport.authenticate('onshape', { state: uuidv4(state) })(req, res);
-}, (req, res) => { /* redirected to Onshape for authentication */ });
+}, (req, res) => { console.log("this should NEVER run") /* redirected to Onshape for authentication */ });
 
 
 // app.use("/oauthSignin", storeExtraParams, function (req, res) {
