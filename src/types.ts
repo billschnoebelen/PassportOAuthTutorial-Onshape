@@ -4,7 +4,7 @@ export interface IUser {
 }
 
 export interface IMongoDBUser {
-    onshapeId?: string,
+    userId: string,
     username: string,
     emails: Array<string>,
     accessToken: string,

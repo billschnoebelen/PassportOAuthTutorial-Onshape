@@ -109,7 +109,7 @@ passport.use(
 
           if (!doc) {
             const newUser = new User({
-              onshapeId: profile.id,
+              userId: profile.id,
               username: profile.displayName,
               emails: profile.emails,
               accessToken: accessToken,

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const user = new mongoose.Schema({
-  onshapeId: {
+  userId: {
     required: true,
     type: String,
   },
@@ -9,9 +9,11 @@ const user = new mongoose.Schema({
     required: true,
     type: String,
   },
-  emails: [{
-    value: String
-  }],
+  emails: [
+    {
+      value: String,
+    },
+  ],
   accessToken: {
     required: true,
     type: String,
@@ -22,7 +24,6 @@ const user = new mongoose.Schema({
   },
 });
 
-
 // onshapeId?: string,
 // username: string,
 // emails: Array<string>,
@@ -31,5 +32,4 @@ const user = new mongoose.Schema({
 // __v: number,
 // _id: string
 
-
-export default mongoose.model("User", user)
+export default mongoose.model("User", user);
