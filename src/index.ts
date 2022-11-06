@@ -238,14 +238,22 @@ app.get("/sandwich", async (req, res) => {
       }
     }
   );
+  
 
   const headers = {
     headers: {
-      Authorization: `Bearer ${authorization}`,
+      Authorization: `Bearer kOiIHRDIneaJe6sNB0rmmA==`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
   };
+  // const headers = {
+  //   headers: {
+  //     Authorization: `Bearer ${authorization}`,
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //   },
+  // };
 
   const osEndpoint = `https://cad.onshape.com/api/users/${req.query.userId}/settings?includematerials=false`;
 
