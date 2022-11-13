@@ -268,6 +268,7 @@ app.get("/sandwich", async (req, res) => {
         error.response.data
       )}`;
       console.error(msg);
+      console.log("error.response.status", error.response.status)
       return { msg: msg };
     });
 
