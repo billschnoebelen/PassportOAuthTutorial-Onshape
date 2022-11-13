@@ -263,7 +263,7 @@ app.get("/sandwich", async (req, res) => {
       // console.log(response.data)
       return response.data;
     })
-    .catch((error: { response: { data: any } }) => {
+    .catch((error: { response: { data: any, status: any } }) => {
       const msg = `There was an error in your call to ${osEndpoint}!: ${JSON.stringify(
         error.response.data
       )}`;
