@@ -188,7 +188,7 @@ app.get("/", (req, res) => {
 });
 
 // This deserializes the user behind the scenes
-app.get("/getUser", (req, res) => {
+app.get("/getUser", cors(), (req, res) => {
   console.log("getUser req.user", req.user);
   console.log("req.sessionID", req.sessionID);
   res.send(req.user);
