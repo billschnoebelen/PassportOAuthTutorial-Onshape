@@ -20,20 +20,20 @@ mongoose.connect(
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
-// app.use(
-//   cors({
-//     origin: [
-//       "https://legendary-axolotl-5825c7.netlify.app",
-//       "http://localhost:3000",
-//       "http://127.0.0.1:5173",
-//       // "https://legendary-axolotl-5825c7.netlify.app",
-//       "*",
-//     ],
-//     credentials: false,
-//   })
-// );
+app.use(
+  cors({
+    origin: [
+      "https://legendary-axolotl-5825c7.netlify.app",
+      "http://localhost:3000",
+      // "http://127.0.0.1:3000",
+      // "https://legendary-axolotl-5825c7.netlify.app",
+      // "*",
+    ],
+    credentials: true,
+  })
+);
 
 app.use((req, res, next) => {
   console.log("req", req.method, req.url);
@@ -194,7 +194,7 @@ app.get("/getUser", (req, res) => {
   res.send(req.user);
 });
 
-app.get("/taco", cors(), (req, res) => {
+app.get("/taco", (req, res) => {
   console.log("getUser req.user", req.user);
   console.log("req.sessionID", req.sessionID);
   res.send("tacos");
