@@ -20,18 +20,20 @@ mongoose.connect(
 
 // Middleware
 app.use(express.json());
-app.use(
-  cors({
-    origin: [
-      "https://legendary-axolotl-5825c7.netlify.app",
-      "http://localhost:3000",
-      "http://127.0.0.1:5173",
-      // "https://legendary-axolotl-5825c7.netlify.app",
-      "*",
-    ],
-    credentials: false,
-  })
-);
+app.use(cors());
+
+// app.use(
+//   cors({
+//     origin: [
+//       "https://legendary-axolotl-5825c7.netlify.app",
+//       "http://localhost:3000",
+//       "http://127.0.0.1:5173",
+//       // "https://legendary-axolotl-5825c7.netlify.app",
+//       "*",
+//     ],
+//     credentials: false,
+//   })
+// );
 
 app.use((req, res, next) => {
   console.log("req", req.method, req.url);
