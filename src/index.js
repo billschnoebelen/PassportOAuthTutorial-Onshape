@@ -24,13 +24,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: [
-      // "https://legendary-axolotl-5825c7.netlify.app",
-      "http://localhost:3000",
-      // "http://127.0.0.1:3000",
-      // "https://legendary-axolotl-5825c7.netlify.app",
-      // "*",
-    ],
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
