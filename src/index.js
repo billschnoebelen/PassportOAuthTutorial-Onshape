@@ -188,10 +188,16 @@ app.get("/", (req, res) => {
 });
 
 // This deserializes the user behind the scenes
-app.get("/getUser", cors(), (req, res) => {
+app.get("/getUser", (req, res) => {
   console.log("getUser req.user", req.user);
   console.log("req.sessionID", req.sessionID);
   res.send(req.user);
+});
+
+app.get("/taco", cors(), (req, res) => {
+  console.log("getUser req.user", req.user);
+  console.log("req.sessionID", req.sessionID);
+  res.send("tacos");
 });
 
 // logout does not clear the cookie
