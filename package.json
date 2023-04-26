@@ -7,7 +7,7 @@
     "start": "node build/dist/index.js",
     "heroku-prebuild": "npm install",
     "build": "tsc -p .",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.js",
     "devSessionDebug": "set DEBUG=express-session & nodemon --exec ts-node src/index.ts"
   },
   "keywords": [],
