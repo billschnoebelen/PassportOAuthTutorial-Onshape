@@ -179,8 +179,8 @@ app.get(
   }
 );
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.get("/test", (req, res) => {
+  res.send("Hello World Test");
 });
 
 // This deserializes the user behind the scenes
